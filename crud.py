@@ -25,7 +25,7 @@ def create_webhook_message(db: Session, webhook_message: schemas.WebhookMessageC
     db.commit()
     db.refresh(messageArray)
     db.refresh(db_message)
-    return messageArray.chat_id
+    return messageArray
 
 def create_system_mesasges(db: Session, webhook_message: schemas.AddSystem):
 
