@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List
 
 class WebhookTextBody(BaseModel):
@@ -12,7 +12,7 @@ class WebhookMessageCreate(BaseModel):
     timestamp: int
     source: str
     text: WebhookTextBody
-    from_user: str
+    from_user: str = Field(alias="from")
     from_name: str
 
     class Config:
