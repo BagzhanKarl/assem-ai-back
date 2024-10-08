@@ -23,3 +23,13 @@ class Messages(Base):
     role = Column(String(255))
     content = Column(String(500))
     name = Column(String(255))
+
+class Calendar(Base):
+    __tablename__ = 'appointments'
+    id = Column(Integer, primary_key=True, index=True)
+    chat_id = Column(String(255))
+    date = Column(String(25))
+    time = Column(String(25))
+
+    name = Column(String(255))
+    user_data = Column(String(255))

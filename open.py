@@ -1,5 +1,7 @@
 import json
 from openai import OpenAI
+
+import crud
 import whatsapp
 
 def generate_ai(key, messages):
@@ -21,6 +23,37 @@ def generate_ai(key, messages):
                 "additionalProperties": False,
             },
         },
+        {
+            "name": "create_meet_on_top_manager",
+            "description": "Создает запись о встрече с топ менеджером проекта чтобы поговорить о сотрудничесве",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "chat_id": {
+                        "type": "string",
+                        "description": "ID чата пользователя который вы общаетесь, например, 77761174378@40.whatsapp.net",
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Имя пользователя который вы общаетесь, например, Багжан",
+                    },
+                    "date": {
+                        "type": "string",
+                        "description": "Дата встречи, например, 08.10.2024",
+                    },
+                    "time": {
+                        "type": "string",
+                        "description": "Время встечи, напримет, 10:00",
+                    },
+                    "user_data": {
+                        "type": "string",
+                        "description": "Короткая но подробная информация чтобы перед встречи топ менеджер мог прочитать и знал о клиенте",
+                    },
+                },
+                "required": ["chat_id", "name", "date", "time", "user_data"],
+                "additionalProperties": False,
+            },
+        }
     ]
 
     completion = client.chat.completions.create(
@@ -40,5 +73,10 @@ def generate_ai(key, messages):
             function_response = whatsapp.add_user_on_black_list(**function_args)
 
             return 'Пользователь заблокирован'
+
+        if function_name == "create_meet_on_top_manager":
+            function_response = crud.create_meet_on_top_manager(**function_args)
+
+            return 'Встреча создан'
     else:
         return response_message.content

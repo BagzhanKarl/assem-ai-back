@@ -28,7 +28,7 @@ async def create_webhook_message(webhook: schemas.WebhookCreate, db: Session = D
 
     if last_chat:
         async with httpx.AsyncClient() as client:
-            response = await client.post(f'http://127.0.0.1:8000/ai/generate/{last_chat.chat_id}', timeout=10)
+            response = await client.post(f'http://127.0.0.1:8000/ai/generate/{last_chat}', timeout=10)
 
         if response.status_code != 200:
             raise HTTPException(status_code=response.status_code, detail=response.json().get("detail", "Error generating response"))
@@ -82,7 +82,7 @@ def generate_message_array(chat_id: str, db: Session = Depends(get_db)):
     array = crud.create_message_array(chat_id, db)
     return array
 
-@app.get('/ai/generate/{chat_id}')
+@app.post('/ai/generate/{chat_id}')
 async def generate_answere(chat_id: str, db: Session = Depends(get_db)):
     array = crud.create_message_array(chat_id, db)
     ans = open.generate_ai('', array)

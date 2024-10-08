@@ -1,5 +1,7 @@
+
 from sqlalchemy.orm import Session
 import models, schemas
+
 
 def create_webhook_message(db: Session, webhook_message: schemas.WebhookMessageCreate):
     db_message = models.WebhookMessage(
@@ -77,3 +79,17 @@ def save_answere(chat_id: str, role: str, content: str, name: str, db: Session):
     db.commit()
     db.refresh(message)
     return message
+
+def create_meet_on_top_manager(chat_id: str, name: str, desc: str, date: str, time: str, db: Session = Depends(get_db)):
+    meet = models.Calendar(
+        chat_id=chat_id,
+        name=name,
+        date=date,
+        time=time,
+        user_data=desc
+    )
+    db.add(meet)
+    db.commit()
+    db.refresh(meet)
+
+    return meet
