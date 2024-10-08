@@ -1,6 +1,7 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
 import models, schemas
+from datetime import datetime
 
 
 
@@ -54,9 +55,10 @@ def create_message_array(chatid: str, db: Session):
             "name": message.name
         })
 
+    current_time = datetime.now().strftime("%d-%m-%Y %H:%M")
     messages.append({
         "role": "system",
-        "content": f"ID чата: {chatid}",
+        "content": f"ID чата: {chatid}, текущее время: {current_time}",
         "name": "system",
     })
 
