@@ -54,6 +54,12 @@ def create_message_array(chatid: str, db: Session):
             "name": message.name
         })
 
+    messages.append({
+        "role": "system",
+        "content": f"ID чата: {chatid}",
+        "name": "system",
+    })
+
     chat_message = db.query(models.Messages).filter(models.Messages.chat_id == chatid).all()
     for message in chat_message:
         messages.append({
@@ -62,11 +68,6 @@ def create_message_array(chatid: str, db: Session):
             "name": message.name
         })
 
-    messages.append({
-        "role": "system",
-        "content": f"ID чата: {chatid}",
-        "name": "system",
-    })
     return messages
 
 def save_answere(chat_id: str, role: str, content: str, name: str, db: Session):
