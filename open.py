@@ -46,12 +46,12 @@ def generate_ai(key, messages):
                         "type": "string",
                         "description": "Время встечи, напримет, 10:00",
                     },
-                    "user_data": {
+                    "desc": {
                         "type": "string",
                         "description": "Короткая но подробная информация чтобы перед встречи топ менеджер мог прочитать и знал о клиенте",
                     },
                 },
-                "required": ["chat_id", "name", "date", "time", "user_data"],
+                "required": ["chat_id", "name", "date", "time", "desc"],
                 "additionalProperties": False,
             },
         }
