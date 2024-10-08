@@ -1,6 +1,7 @@
-
+from fastapi import Depends
 from sqlalchemy.orm import Session
 import models, schemas
+from main import get_db
 
 
 def create_webhook_message(db: Session, webhook_message: schemas.WebhookMessageCreate):
