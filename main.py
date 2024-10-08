@@ -19,6 +19,19 @@ def get_db():
     finally:
         db.close()
 
+def create_meet_on_top_manager(chat_id: str, name: str, desc: str, date: str, time: str, db: Session = Depends(get_db)):
+    meet = models.Calendar(
+        chat_id=chat_id,
+        name=name,
+        date=date,
+        time=time,
+        user_data=desc
+    )
+    db.add(meet)
+    db.commit()
+    db.refresh(meet)
+
+    return meet
 @app.post("/webhook/")
 async def create_webhook_message(webhook: schemas.WebhookCreate, db: Session = Depends(get_db)):
     last_chat = None

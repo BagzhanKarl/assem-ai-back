@@ -2,6 +2,7 @@ import json
 from openai import OpenAI
 
 import crud
+import main
 import whatsapp
 
 def generate_ai(key, messages):
@@ -75,7 +76,7 @@ def generate_ai(key, messages):
             return 'Пользователь заблокирован'
 
         if function_name == "create_meet_on_top_manager":
-            function_response = crud.create_meet_on_top_manager(**function_args)
+            function_response = main.create_meet_on_top_manager(**function_args)
 
             return 'Встреча создан'
     else:
